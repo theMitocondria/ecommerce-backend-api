@@ -17,10 +17,7 @@ dotenv.config();
 dbconnect();
  
 const app=Express();
-app.use(cors({
-  origin:"*"
-}
-))
+
 // stripe webhook
 const stripe=new Stripe(process.env.STRIPE_KEY);
 
@@ -64,7 +61,10 @@ app.post('/webhook', Express.raw({type: 'application/json'}), async (request, re
 
 // taking data
 app.use(Express.json());
-
+app.use(cors({
+  origin:"*"
+}
+))
 // routes
 app.use('/api/v1/users',userRoutes);
 app.use('/api/v1/product',ProductRouter);
